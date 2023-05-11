@@ -1,0 +1,6 @@
+training:
+  out_dir: out/reg
+
+checkpoint:
+  model_selection_metric: angle
+  model_selection_mode: minimize

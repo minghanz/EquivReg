@@ -1,0 +1,91 @@
+
+training:
+  out_dir: out/default
+  lr: 1.0e-4
+  lr_schedule: null
+testing:
+  out_dir: test
+  model_file: model_best.pt
+
+data:
+  input:
+    path: ModelNet40_install
+    pointcloud_file: pointcloud.npz
+    T_file: null
+  input_bench:
+    path: ModelNet40_benchmark
+    pointcloud_file_1: pcl_1.npy
+    pointcloud_file_2: pcl_2.npy
+    T21_file: R21.npz
+  occ:
+    points_file: points.npz
+    points_subsample: 1024
+    points_unpackbits: true
+    points_iou_file: points.npz
+    voxels_file: null
+  train:
+    reg: true
+    presamp_n: 2048
+    noise: 0.01
+    resamp: false
+    rotate: 180
+
+    subsamp: true
+    n1: 1024
+    n2_min: 400
+    n2_max: 1200
+    centralize: false # true
+  val: {}
+  test: 
+    reg_benchmark: false
+    centralize: false #
+  vis:
+    reg: false
+    split: val
+
+dataloader:
+  train:
+    batch_size: 10
+    num_workers: 10
+  val:
+    batch_size: 10
+    num_workers: 5
+  vis:
+    batch_size: 12
+
+trainer:
+  angloss_w: 10
+  closs_w: 0
+  occloss_w: 1
+  cos_loss: false
+  cos_mse: false
+  threshold: 0.5 # 0.2
+
+tester: {}
+
+model:
+  encoder: pointnet_resnet_vn
+  decoder: cbatchnorm_vn
+  encoder_latent: null
+  z_dim: 0
+  c_dim: 513
+  encoder_kwargs:
+    hidden_dim: 1026
+    ball_radius: 0.
+    pooling: mean
+    init_lrf: false
+    lrf_cross: false
+    n_knn: 20
+    global_relu: false
+  decoder_kwargs: {}
+  encoder_latent_kwargs: {}
+  
+checkpoint:
+  model_selection_metric: iou
+  model_selection_mode: maximize
+callback:
+  print_every: 200
+  visualize_every: 0
+  validate_every: 10000
+  checkpoint_every: 50000
+  autosave_every: 10000

@@ -1,0 +1,19 @@
+inherit_from: out/reg/cfg.yaml
+
+testing:
+  out_dir: test_subsamp
+  model_file: model_best.pt
+
+data:
+  test:
+    reg: true
+    presamp_n: 1024
+    noise: 0.01
+    resamp: false
+    rotate: 180
+
+    subsamp: true
+    n1: 1024
+    n2_min: 512
+    n2_max: 512
+    centralize: false

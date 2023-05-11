@@ -1,0 +1,12 @@
+training:
+  out_dir: out/nreg
+
+data:
+  train:
+    reg: false
+    presamp_n: 1200
+  val:
+    reg: true
+    presamp_n: 2048
+
+
